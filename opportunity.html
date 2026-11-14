@@ -1,0 +1,1039 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opportunity Rover | Ghosts of the Solar System</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* MOVING PLANET */
+
+.planet {
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle at 30% 30%,
+        #8cecff,
+        #176080 50%,
+        #07111b 90%
+    );
+
+    box-shadow: 0 0 45px rgba(140, 236, 255, 0.3);
+
+    animation: planetFloat 4s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes planetFloat {
+    0%, 100% {
+        transform: translateY(-50%);
+    }
+
+    50% {
+        transform: translateY(calc(-50% - 25px));
+    }
+}
+
+@media (max-width: 800px) {
+    .planet {
+        width: 110px;
+        height: 110px;
+        right: 8%;
+        top: 75%;
+        opacity: 0.5;
+    }
+}
+
+
+
+
+:root {
+    --background: #070b13;
+    --panel: #101b2a;
+    --panel-light: #142438;
+    --cyan: #8cecff;
+    --text: #eaf4ff;
+    --muted: #9aafc4;
+    --border: rgba(140,236,255,0.16);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: min(1150px, 90%);
+    margin: auto;
+}
+
+/* NAVIGATION */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(7,11,19,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+}
+
+nav {
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--cyan);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--cyan);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    color: var(--cyan);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background:
+        radial-gradient(circle at 78% 45%, rgba(30,95,120,0.23), transparent 35%),
+        linear-gradient(110deg, #070b13 40%, #0c1b29 100%);
+}
+
+
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    padding: 90px 0;
+}
+
+.eyebrow {
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(38px, 7vw, 72px);
+    line-height: 1.12;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: var(--cyan);
+}
+
+.hero p {
+    max-width: 600px;
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.button {
+    display: inline-block;
+    padding: 13px 24px;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: var(--cyan);
+    color: #07111b;
+}
+
+/* GENERAL SECTIONS */
+
+section {
+    padding: 85px 0;
+}
+
+.section-label {
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(25px, 4vw, 38px);
+    margin-bottom: 22px;
+}
+
+.section-intro {
+    color: var(--muted);
+    max-width: 760px;
+    margin-bottom: 40px;
+}
+
+/* MISSION STATISTICS */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 25px;
+}
+
+.stat-card h3 {
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+
+.stat-card p {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/* CONTENT CARDS */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.content-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 30px;
+    border-radius: 4px;
+}
+
+.content-card h3 {
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+
+.content-card p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.content-card ul {
+    padding-left: 20px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.content-card li {
+    margin-bottom: 10px;
+}
+
+.highlight {
+    color: var(--cyan);
+    font-weight: 600;
+}
+
+/* ENGINEERING CARDS */
+
+.design-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.design-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 28px;
+    transition: 0.3s;
+}
+
+.design-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--cyan);
+}
+
+.design-number {
+    font-family: 'Orbitron', sans-serif;
+    color: rgba(140,236,255,0.4);
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.design-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cyan);
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.design-card p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* TIMELINE */
+
+.timeline {
+    border-left: 1px solid var(--cyan);
+    margin-left: 10px;
+    padding-left: 35px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 35px;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--cyan);
+    border-radius: 50%;
+    left: -41px;
+    top: 8px;
+    box-shadow: 0 0 12px var(--cyan);
+}
+
+.timeline-item h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    color: var(--cyan);
+    margin-bottom: 8px;
+}
+
+.timeline-item p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* FINAL PANEL */
+
+.final-panel {
+    background:
+        linear-gradient(120deg, rgba(20,50,70,0.8), rgba(10,18,30,0.95));
+    border: 1px solid var(--border);
+    padding: 45px;
+    border-radius: 5px;
+}
+
+.final-panel h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.final-panel p {
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+/* PAGE NAVIGATION */
+
+.page-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 35px 0;
+    border-top: 1px solid var(--border);
+}
+
+.page-navigation a {
+    color: var(--cyan);
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.page-navigation a:hover {
+    color: white;
+}
+
+/* FOOTER */
+
+footer {
+    border-top: 1px solid var(--border);
+    padding: 30px 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+footer span {
+    color: var(--cyan);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .design-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        background: #0b111c;
+        flex-direction: column;
+        gap: 0;
+        padding: 15px 5%;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links li {
+        padding: 12px 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 520px) {
+    section {
+        padding: 60px 0;
+    }
+
+    .stats-grid,
+    .design-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        min-height: 470px;
+    }
+
+    .final-panel {
+        padding: 25px;
+    }
+
+    .page-navigation {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">GHOSTS.</a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="archive.html" class="active">ARCHIVE</a></li>
+                <li><a href="index.html#about">ABOUT</a></li>
+                <li><a href="index.html#legacy">LEGACY</a></li>
+            </ul>
+
+            <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false">☰</button>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+    
+    <div class="planet"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="eyebrow">ARCHIVE 003 / MARS EXPLORATION</div>
+
+            <h1>OPPORTUNITY<br><span>THE ENDURING EXPLORER</span></h1>
+
+            <p>
+                Designed to survive for just 90 Martian days,
+                Opportunity continued exploring for almost 15 years.
+                Its journey across Mars became one of the greatest
+                endurance achievements in robotic exploration.
+            </p>
+
+            <a href="#mission" class="button">EXPLORE THE MISSION</a>
+        </div>
+    </div>
+</section>
+
+<!-- MISSION PROFILE -->
+
+<section id="mission">
+    <div class="container">
+        <div class="section-label">MISSION PROFILE</div>
+        <h2 class="section-title">A MISSION THAT REFUSED TO END</h2>
+
+        <p class="section-intro">
+            Opportunity was one of two Mars Exploration Rovers
+            sent to investigate the geology of Mars and search
+            for evidence that liquid water had existed there
+            in the ancient past.
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>2004</h3>
+                <p>MARS LANDING YEAR</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>90 SOLS</h3>
+                <p>PLANNED MISSION</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>45.16 KM</h3>
+                <p>TOTAL DISTANCE</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>14+ YEARS</h3>
+                <p>TIME ON MARS</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- INTRODUCTION -->
+
+<section>
+    <div class="container">
+        <div class="section-label">01 / THE MACHINE</div>
+        <h2 class="section-title">WHAT WAS OPPORTUNITY?</h2>
+
+        <div class="content-grid">
+
+            <div class="content-card">
+                <h3>A ROBOTIC GEOLOGIST</h3>
+
+                <p>
+                    Opportunity was a solar-powered robotic rover
+                    developed by NASA's Jet Propulsion Laboratory.
+                    It was part of the Mars Exploration Rover
+                    mission, alongside its twin rover, Spirit.
+                </p>
+
+                <p>
+                    Opportunity landed in the Meridiani Planum
+                    region of Mars in January 2004. Its primary
+                    objective was to examine rocks and soil for
+                    geological evidence of ancient water.
+                </p>
+
+                <p>
+                    It was designed to travel approximately
+                    one kilometre and operate for 90 Martian days.
+                    Instead, it travelled more than 45 kilometres
+                    and operated for over 14 years.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h3>MISSION OBJECTIVES</h3>
+
+                <ul>
+                    <li>Search for geological evidence of ancient water.</li>
+                    <li>Study the composition of Martian rocks and soil.</li>
+                    <li>Investigate craters and exposed rock layers.</li>
+                    <li>Examine minerals formed in the presence of water.</li>
+                    <li>Demonstrate long-duration robotic surface exploration.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ENGINEERING -->
+
+<section>
+    <div class="container">
+        <div class="section-label">02 / ENGINEERING</div>
+        <h2 class="section-title">INSIDE THE ROVER</h2>
+
+        <p class="section-intro">
+            Opportunity was considerably larger and more capable
+            than the Sojourner rover. It carried a collection of
+            scientific instruments mounted on a mobile robotic
+            platform.
+        </p>
+
+        <div class="design-grid">
+
+            <div class="design-card">
+                <div class="design-number">01</div>
+                <h3>SIX-WHEEL MOBILITY</h3>
+
+                <p>
+                    Six wheels and a rocker-bogie suspension system
+                    allowed Opportunity to travel across uneven
+                    Martian terrain, climb slopes, and approach
+                    scientific targets.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">02</div>
+                <h3>PANCAM</h3>
+
+                <p>
+                    The panoramic camera system captured detailed
+                    colour images of the surrounding landscape.
+                    These images helped scientists study the
+                    geology and plan the rover's route.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">03</div>
+                <h3>APXS</h3>
+
+                <p>
+                    The Alpha Particle X-ray Spectrometer measured
+                    the elemental composition of rocks and soil,
+                    helping scientists identify their chemical
+                    characteristics.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">04</div>
+                <h3>MINI-TES</h3>
+
+                <p>
+                    The Miniature Thermal Emission Spectrometer
+                    studied infrared radiation from rocks and
+                    soil to identify minerals and investigate
+                    their composition.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">05</div>
+                <h3>ROCK ABRASION TOOL</h3>
+
+                <p>
+                    The Rock Abrasion Tool, or RAT, ground away
+                    the outer surface of selected rocks so that
+                    scientific instruments could examine
+                    relatively fresh material beneath.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">06</div>
+                <h3>SOLAR POWER</h3>
+
+                <p>
+                    Solar panels converted sunlight into
+                    electrical energy. Rechargeable batteries
+                    stored energy for operations when sunlight
+                    was unavailable.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SCIENTIFIC DISCOVERIES -->
+
+<section>
+    <div class="container">
+        <div class="section-label">03 / SCIENTIFIC DISCOVERIES</div>
+        <h2 class="section-title">TRACES OF AN ANCIENT MARS</h2>
+
+        <p class="section-intro">
+            Opportunity's most important contribution was its
+            evidence that liquid water had affected the Martian
+            environment in the distant past.
+        </p>
+
+        <div class="content-grid">
+
+            <div class="content-card">
+                <h3>THE MARTIAN BLUEBERRIES</h3>
+
+                <p>
+                    Near its landing site, Opportunity discovered
+                    small, rounded mineral formations embedded
+                    in the rocks. These formations became known
+                    informally as Martian blueberries.
+                </p>
+
+                <p>
+                    Their composition and geological context
+                    provided evidence of past water-related
+                    processes. They were an important clue
+                    in reconstructing the history of Mars.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h3>WATER-ALTERED ROCKS</h3>
+
+                <p>
+                    Opportunity examined rocks containing minerals
+                    and textures associated with interaction
+                    with liquid water.
+                </p>
+
+                <p>
+                    Its observations showed that parts of Mars
+                    had once experienced wet environmental
+                    conditions. Some of these environments
+                    may have been suitable for microbial life.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- TIMELINE -->
+
+<section>
+    <div class="container">
+        <div class="section-label">04 / MISSION CHRONOLOGY</div>
+        <h2 class="section-title">FIFTEEN YEARS ON MARS</h2>
+
+        <p class="section-intro">
+            From its launch in 2003 to its final communication
+            in 2018, Opportunity travelled across the Martian
+            landscape and investigated numerous geological sites.
+        </p>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <h3>07 JULY 2003 — LAUNCH</h3>
+
+                <p>
+                    Opportunity launched from Cape Canaveral,
+                    Florida, aboard a Delta II rocket.
+                    It began its journey to Mars as part
+                    of NASA's Mars Exploration Rover mission.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>JANUARY 2004 — LANDING</h3>
+
+                <p>
+                    Opportunity landed in Meridiani Planum
+                    inside a small impact crater later named
+                    Eagle Crater. It began examining the
+                    surrounding rocks and soil.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>2004 — ENDURANCE CRATER</h3>
+
+                <p>
+                    After exploring Eagle Crater, Opportunity
+                    travelled to Endurance Crater. It examined
+                    exposed rock layers and gathered evidence
+                    about the region's geological history.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>2005 — THE HEAT SHIELD ROCK</h3>
+
+                <p>
+                    Near its discarded heat shield, Opportunity
+                    discovered a rock identified as an
+                    iron-nickel meteorite. This was the first
+                    meteorite identified on another planet.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>2006–2011 — EXTENDED EXPLORATION</h3>
+
+                <p>
+                    Opportunity continued travelling through
+                    the Martian landscape, investigating
+                    Victoria Crater and eventually reaching
+                    the much larger Endeavour Crater.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>25 MARCH 2015 — MARATHON DISTANCE</h3>
+
+                <p>
+                    Opportunity travelled 42.195 kilometres,
+                    becoming the first human-made vehicle
+                    to complete a marathon distance on
+                    the surface of another world.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>2018 — PERSEVERANCE VALLEY</h3>
+
+                <p>
+                    Opportunity continued exploring the western
+                    edge of Endeavour Crater. Its final
+                    scientific work took place in the region
+                    known as Perseverance Valley.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>10 JUNE 2018 — LAST COMMUNICATION</h3>
+
+                <p>
+                    A severe planet-wide dust storm reduced
+                    the sunlight reaching Opportunity's
+                    solar panels. The rover sent its final
+                    communication to Earth.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>13 FEBRUARY 2019 — MISSION ENDS</h3>
+
+                <p>
+                    After months of unsuccessful attempts
+                    to restore contact, NASA officially
+                    declared the Opportunity mission complete.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- WHY IT STOPPED -->
+
+<section>
+    <div class="container">
+        <div class="section-label">05 / THE FINAL SIGNAL</div>
+        <h2 class="section-title">WHY DID OPPORTUNITY STOP?</h2>
+
+        <div class="final-panel">
+
+            <h2>LOST BENEATH THE DUST</h2>
+
+            <p>
+                Opportunity depended on sunlight to generate
+                electrical power through its solar panels.
+                During June 2018, a severe dust storm spread
+                across Mars and covered much of the planet.
+            </p>
+
+            <p>
+                Dust in the atmosphere blocked sunlight from
+                reaching the rover's solar panels. As available
+                electrical energy decreased, Opportunity
+                could no longer maintain normal operations
+                and communication with Earth.
+            </p>
+
+            <p>
+                Its final communication was received on
+                10 June 2018. Engineers sent more than
+                a thousand commands in an attempt to
+                re-establish contact, but the rover
+                never responded again.
+            </p>
+
+            <p>
+                NASA officially ended the mission on
+                13 February 2019. The exact sequence
+                of hardware failures after the loss of
+                communication was not directly observed.
+            </p>
+
+            <p>
+                Opportunity remains on Mars, in the region
+                of Perseverance Valley. Its silence marked
+                the end of a mission that had lasted
+                far beyond its original design.
+            </p>
+
+        </div>
+    </div>
+</section>
+
+<!-- LEGACY -->
+
+<section>
+    <div class="container">
+        <div class="section-label">06 / THE LEGACY</div>
+        <h2 class="section-title">A JOURNEY BEYOND EXPECTATIONS</h2>
+
+        <div class="content-grid">
+
+            <div class="content-card">
+                <h3>AN ENGINEERING ACHIEVEMENT</h3>
+
+                <p>
+                    Opportunity demonstrated that a robotic
+                    explorer could operate on another planet
+                    for many years, despite harsh environmental
+                    conditions, hardware failures, and
+                    communication challenges.
+                </p>
+
+                <p>
+                    Its 45.16-kilometre journey remains
+                    a major milestone in planetary exploration.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h3>A SCIENTIFIC LEGACY</h3>
+
+                <p>
+                    Its discoveries transformed our understanding
+                    of ancient Mars by showing that liquid water
+                    had once played an important role in shaping
+                    the planet's surface.
+                </p>
+
+                <p>
+                    Opportunity helped establish the scientific
+                    and engineering foundation for later
+                    Mars exploration missions.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- PAGE NAVIGATION -->
+
+<div class="container">
+    <div class="page-navigation">
+        <a href="sojourner.html">← PREVIOUS: SOJOURNER</a>
+        <a href="archive.html">BACK TO THE ARCHIVE →</a>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>GHOSTS OF THE SOLAR SYSTEM — <span>EXPLORATION NEVER FORGOTTEN.</span></p>
+    </div>
+</footer>
+
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("show");
+    menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.textContent = isOpen ? "✕" : "☰";
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+    });
+});
+</script>
+
+</body>
+</html>

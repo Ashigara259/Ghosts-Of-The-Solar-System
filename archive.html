@@ -1,0 +1,885 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Lost Archive | Ghosts of the Solar System</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #070b13;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+/* NAVIGATION */
+
+nav {
+    height: 80px;
+    padding: 0 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(7,11,19,0.97);
+    border-bottom: 1px solid #202c3b;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #8cecff;
+    letter-spacing: 2px;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #b5c1d0;
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #8cecff;
+}
+
+.menu {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* PAGE HEADER */
+
+.page-header {
+    padding: 100px 10% 70px;
+    background:
+    radial-gradient(ellipse at 80% 30%, #172b40, transparent 45%),
+    linear-gradient(120deg, #080d18, #101d2d);
+    border-bottom: 1px solid #202c3b;
+}
+
+.breadcrumb {
+    color: #71869c;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+.breadcrumb a {
+    color: #8cecff;
+    text-decoration: none;
+}
+
+.label {
+    color: #8cecff;
+    font-size: 11px;
+    letter-spacing: 4px;
+}
+
+.page-header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(38px, 6vw, 65px);
+    margin: 20px 0;
+    line-height: 1.2;
+}
+
+.page-header h1 span {
+    color: #8cecff;
+}
+
+.page-header p {
+    color: #a8b5c5;
+    max-width: 680px;
+    line-height: 1.9;
+    font-size: 14px;
+}
+
+/* ARCHIVE STATISTICS */
+
+.statistics {
+    padding: 35px 10%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid #202c3b;
+}
+
+.stat {
+    padding: 10px 25px;
+    border-right: 1px solid #25364a;
+}
+
+.stat:last-child {
+    border: none;
+}
+
+.stat h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #8cecff;
+    font-size: 30px;
+}
+
+.stat p {
+    color: #8999ab;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+}
+
+/* SEARCH AND FILTERS */
+
+.archive-section {
+    padding: 80px 10%;
+}
+
+.archive-heading {
+    margin-bottom: 35px;
+}
+
+.archive-heading h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    margin-top: 15px;
+}
+
+.archive-heading p {
+    color: #8e9bad;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 16px;
+    background: #101b2a;
+    border: 1px solid #25364a;
+    color: white;
+    outline: none;
+    font-size: 13px;
+}
+
+.search-box input:focus {
+    border-color: #8cecff;
+}
+
+.search-box input::placeholder {
+    color: #78899d;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 1px solid #25364a;
+    background: transparent;
+    color: #aab8c9;
+    cursor: pointer;
+    font-size: 11px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #8cecff;
+    color: #07111b;
+    border-color: #8cecff;
+}
+
+/* ARCHIVE CARDS */
+
+.archive-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.archive-card {
+    background: #101b2a;
+    border: 1px solid #25364a;
+    padding: 28px;
+    transition: 0.3s;
+}
+
+.archive-card:hover {
+    border-color: #8cecff;
+    transform: translateY(-5px);
+}
+
+.archive-card.hidden {
+    display: none;
+}
+
+.file-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-id {
+    color: #8cecff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+}
+
+.status {
+    color: #ffb18c;
+    background: #ff9d7015;
+    border: 1px solid #ff9d7040;
+    padding: 6px 10px;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.archive-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 21px;
+    margin: 25px 0 10px;
+}
+
+.location {
+    color: #8cecff;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 17px;
+}
+
+.description {
+    color: #9baabd;
+    font-size: 13px;
+    line-height: 1.9;
+    min-height: 72px;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid #25364a;
+    border-bottom: 1px solid #25364a;
+}
+
+.detail small {
+    color: #78899d;
+    display: block;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+}
+
+.detail strong {
+    font-size: 12px;
+    font-weight: 500;
+    color: #e0eaf5;
+}
+
+.view-file {
+    display: inline-block;
+    margin-top: 23px;
+    color: #8cecff;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-decoration: none;
+}
+
+.view-file:hover {
+    color: white;
+}
+
+/* EMPTY SEARCH */
+
+.no-results {
+    display: none;
+    text-align: center;
+    color: #9baabd;
+    padding: 55px 15px;
+    border: 1px dashed #25364a;
+}
+
+.no-results.show {
+    display: block;
+}
+
+/* BOTTOM SECTION */
+
+.archive-note {
+    padding: 65px 10%;
+    background: #0b111c;
+    text-align: center;
+}
+
+.archive-note h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 23px;
+    margin-bottom: 18px;
+}
+
+.archive-note p {
+    color: #9baabd;
+    font-size: 13px;
+    line-height: 1.9;
+    max-width: 650px;
+    margin: auto;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 30px;
+    text-align: center;
+    border-top: 1px solid #25364a;
+    color: #77889b;
+    font-size: 11px;
+    line-height: 2;
+}
+
+/* MOBILE */
+
+@media(max-width: 700px) {
+
+    nav {
+        padding: 0 5%;
+    }
+
+    .menu {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        padding: 25px;
+        background: #0b111c;
+        flex-direction: column;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .page-header {
+        padding: 75px 7%;
+    }
+
+    .statistics {
+        padding: 25px 7%;
+        grid-template-columns: 1fr;
+    }
+
+    .stat {
+        border-right: none;
+        border-bottom: 1px solid #25364a;
+        padding: 17px 0;
+    }
+
+    .stat:last-child {
+        border: none;
+    }
+
+    .archive-section {
+        padding: 65px 7%;
+    }
+
+    .archive-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .archive-heading h2 {
+        font-size: 23px;
+    }
+
+    .search-box input {
+        min-width: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <a href="index.html" class="logo">GHOSTS.</a>
+
+    <button class="menu" id="menuBtn">☰</button>
+
+    <div class="nav-links" id="navLinks">
+
+        <a href="index.html">HOME</a>
+
+        <a href="archive.html" class="active">ARCHIVE</a>
+
+        <a href="index.html#about">ABOUT</a>
+
+        <a href="index.html#legacy">LEGACY</a>
+
+    </div>
+
+</nav>
+
+
+<!-- PAGE INTRODUCTION -->
+
+<header class="page-header">
+
+    <div class="breadcrumb">
+        <a href="index.html">HOME</a> / THE LOST ARCHIVE
+    </div>
+
+    <div class="label">
+        CLASSIFIED MISSION RECORDS
+    </div>
+
+    <h1>
+        THE LOST<br>
+        <span>ARCHIVE.</span>
+    </h1>
+
+    <p>
+        Not every explorer returns home.
+
+        Across the Moon and Mars, humanity has left behind
+        machines that once explored the unknown.
+
+        Some completed their missions. Some exceeded every
+        expectation. All of them contributed to our understanding
+        of worlds beyond Earth.
+
+        Explore their records below.
+    </p>
+
+</header>
+
+
+<!-- STATISTICS -->
+
+<section class="statistics">
+
+    <div class="stat">
+        <h2>03</h2>
+        <p>FEATURED MACHINES</p>
+    </div>
+
+    <div class="stat">
+        <h2>02</h2>
+        <p>WORLDS EXPLORED</p>
+    </div>
+
+    <div class="stat">
+        <h2>1969–2018</h2>
+        <p>MISSION ERA</p>
+    </div>
+
+</section>
+
+
+<!-- SEARCHABLE ARCHIVE -->
+
+<section class="archive-section">
+
+    <div class="archive-heading">
+
+        <div class="label">MISSION DATABASE / 001</div>
+
+        <h2>SEARCH THE ARCHIVE</h2>
+
+        <p>
+            Search by spacecraft name or select a world
+            to discover its forgotten explorers.
+        </p>
+
+    </div>
+
+
+    <!-- SEARCH BAR -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search missions... e.g. Opportunity"
+        >
+
+    </div>
+
+
+    <!-- FILTER BUTTONS -->
+
+    <div class="filters">
+
+        <button class="filter-btn active" data-filter="all">
+            ALL RECORDS
+        </button>
+
+        <button class="filter-btn" data-filter="moon">
+            THE MOON
+        </button>
+
+        <button class="filter-btn" data-filter="mars">
+            MARS
+        </button>
+
+    </div>
+
+
+    <!-- ARCHIVE RECORDS -->
+
+    <div class="archive-grid" id="archiveGrid">
+
+
+        <!-- APOLLO 11 -->
+
+        <article class="archive-card" data-world="moon">
+
+            <div class="file-top">
+
+                <span class="file-id">FILE 001</span>
+
+                <span class="status">MISSION COMPLETE</span>
+
+            </div>
+
+            <h3>APOLLO 11 EAGLE</h3>
+
+            <div class="location">LOCATION: MOON / TRANQUILITY BASE</div>
+
+            <p class="description">
+                The lunar module that carried Neil Armstrong and
+                Buzz Aldrin to the first human landing on the Moon.
+                Its descent stage remains on the lunar surface.
+            </p>
+
+            <div class="details">
+
+                <div class="detail">
+                    <small>LANDING DATE</small>
+                    <strong>20 JULY 1969</strong>
+                </div>
+
+                <div class="detail">
+                    <small>MISSION TYPE</small>
+                    <strong>CREWED LUNAR LANDING</strong>
+                </div>
+
+                <div class="detail">
+                    <small>WORLD</small>
+                    <strong>THE MOON</strong>
+                </div>
+
+                <div class="detail">
+                    <small>HARDWARE STATUS</small>
+                    <strong>DESCENT STAGE LEFT BEHIND</strong>
+                </div>
+
+            </div>
+
+            <a href="apollo11.html" class="view-file">
+                ACCESS MISSION FILE →
+            </a>
+
+        </article>
+
+
+        <!-- SOJOURNER -->
+
+        <article class="archive-card" data-world="mars">
+
+            <div class="file-top">
+
+                <span class="file-id">FILE 002</span>
+
+                <span class="status">MISSION ENDED</span>
+
+            </div>
+
+            <h3>SOJOURNER</h3>
+
+            <div class="location">LOCATION: MARS / ARES VALLIS</div>
+
+            <p class="description">
+                The first wheeled robotic rover to operate on Mars.
+                This small explorer analysed Martian rocks and
+                demonstrated the potential of robotic exploration.
+            </p>
+
+            <div class="details">
+
+                <div class="detail">
+                    <small>LANDING DATE</small>
+                    <strong>4 JULY 1997</strong>
+                </div>
+
+                <div class="detail">
+                    <small>MISSION DURATION</small>
+                    <strong>83 SOLS</strong>
+                </div>
+
+                <div class="detail">
+                    <small>WORLD</small>
+                    <strong>MARS</strong>
+                </div>
+
+                <div class="detail">
+                    <small>HARDWARE STATUS</small>
+                    <strong>INACTIVE</strong>
+                </div>
+
+            </div>
+
+            <a href="sojourner.html" class="view-file">
+                ACCESS MISSION FILE →
+            </a>
+
+        </article>
+
+
+        <!-- OPPORTUNITY -->
+
+        <article class="archive-card" data-world="mars">
+
+            <div class="file-top">
+
+                <span class="file-id">FILE 003</span>
+
+                <span class="status">MISSION ENDED</span>
+
+            </div>
+
+            <h3>OPPORTUNITY</h3>
+
+            <div class="location">LOCATION: MARS / MERIDIANI PLANUM</div>
+
+            <p class="description">
+                A Mars Exploration Rover designed for a 90-day
+                mission that continued working for nearly 15 years.
+                It discovered evidence of ancient water on Mars.
+            </p>
+
+            <div class="details">
+
+                <div class="detail">
+                    <small>LANDING DATE</small>
+                    <strong>25 JANUARY 2004</strong>
+                </div>
+
+                <div class="detail">
+                    <small>MISSION ENDED</small>
+                    <strong>13 FEBRUARY 2019</strong>
+                </div>
+
+                <div class="detail">
+                    <small>WORLD</small>
+                    <strong>MARS</strong>
+                </div>
+
+                <div class="detail">
+                    <small>HARDWARE STATUS</small>
+                    <strong>INACTIVE</strong>
+                </div>
+
+            </div>
+
+            <a href="opportunity.html" class="view-file">
+                ACCESS MISSION FILE →
+            </a>
+
+        </article>
+
+
+    </div>
+
+
+    <div class="no-results" id="noResults">
+        NO MATCHING MISSION RECORDS FOUND.
+        <br><br>
+        Try another spacecraft name or filter.
+    </div>
+
+</section>
+
+
+<!-- CLOSING SECTION -->
+
+<section class="archive-note">
+
+    <div class="label">END OF CURRENT RECORDS</div>
+
+    <h2>THE ARCHIVE IS NOT COMPLETE.</h2>
+
+    <p>
+        Beyond these three pioneers, countless other instruments,
+        landers and spacecraft components remain across the
+        Solar System.
+
+        Their stories are waiting to be discovered.
+    </p>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    GHOSTS OF THE SOLAR SYSTEM
+
+    <br>
+
+    THE LOST ARCHIVE · MISSION DATABASE
+
+    <br>
+
+    AN EDUCATIONAL PROJECT · NOT AN OFFICIAL NASA WEBSITE
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+// MOBILE NAVIGATION
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", function() {
+    navLinks.classList.toggle("active");
+});
+
+
+// SEARCH AND FILTER SYSTEM
+
+const searchInput = document.getElementById("searchInput");
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+
+const cards = document.querySelectorAll(".archive-card");
+
+const noResults = document.getElementById("noResults");
+
+let currentFilter = "all";
+
+function filterArchive() {
+
+    const searchText = searchInput.value.toLowerCase();
+
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+
+        const world = card.dataset.world;
+
+        const content = card.textContent.toLowerCase();
+
+        const matchesSearch = content.includes(searchText);
+
+        const matchesFilter =
+            currentFilter === "all" ||
+            world === currentFilter;
+
+        if (matchesSearch && matchesFilter) {
+
+            card.classList.remove("hidden");
+            visibleCount++;
+
+        } else {
+
+            card.classList.add("hidden");
+
+        }
+
+    });
+
+    noResults.classList.toggle("show", visibleCount === 0);
+
+}
+
+
+// SEARCH INPUT
+
+searchInput.addEventListener("input", filterArchive);
+
+
+// FILTER BUTTONS
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        filterButtons.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        this.classList.add("active");
+
+        currentFilter = this.dataset.filter;
+
+        filterArchive();
+
+    });
+
+});
+
+
+// CLOSE MOBILE MENU
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+
+    link.addEventListener("click", function() {
+        navLinks.classList.remove("active");
+    });
+
+});
+
+</script>
+
+</body>
+</html>

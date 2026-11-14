@@ -1,0 +1,965 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sojourner | Ghosts of the Solar System</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* MOVING PLANET */
+
+.planet {
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle at 30% 30%,
+        #8cecff,
+        #176080 50%,
+        #07111b 90%
+    );
+
+    box-shadow: 0 0 45px rgba(140, 236, 255, 0.3);
+
+    animation: planetFloat 4s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes planetFloat {
+    0%, 100% {
+        transform: translateY(-50%);
+    }
+
+    50% {
+        transform: translateY(calc(-50% - 25px));
+    }
+}
+
+@media (max-width: 800px) {
+    .planet {
+        width: 110px;
+        height: 110px;
+        right: 8%;
+        top: 75%;
+        opacity: 0.5;
+    }
+}
+
+
+
+:root {
+    --background: #070b13;
+    --panel: #101b2a;
+    --panel-light: #142438;
+    --cyan: #8cecff;
+    --text: #eaf4ff;
+    --muted: #9aafc4;
+    --border: rgba(140,236,255,0.16);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: min(1150px, 90%);
+    margin: auto;
+}
+
+/* NAVIGATION */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(7,11,19,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+}
+
+nav {
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--cyan);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--cyan);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    color: var(--cyan);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background:
+        radial-gradient(circle at 78% 45%, rgba(30,95,120,0.23), transparent 35%),
+        linear-gradient(110deg, #070b13 40%, #0c1b29 100%);
+}
+
+
+
+
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    padding: 90px 0;
+}
+
+.eyebrow {
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(38px, 7vw, 72px);
+    line-height: 1.12;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: var(--cyan);
+}
+
+.hero p {
+    max-width: 600px;
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.button {
+    display: inline-block;
+    padding: 13px 24px;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: var(--cyan);
+    color: #07111b;
+}
+
+/* GENERAL SECTIONS */
+
+section {
+    padding: 85px 0;
+}
+
+.section-label {
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(25px, 4vw, 38px);
+    margin-bottom: 22px;
+}
+
+.section-intro {
+    color: var(--muted);
+    max-width: 760px;
+    margin-bottom: 40px;
+}
+
+/* MISSION DATA */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: -1px;
+}
+
+.stat-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 25px;
+}
+
+.stat-card h3 {
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+
+.stat-card p {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/* CONTENT GRID */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: stretch;
+}
+
+.content-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 30px;
+    border-radius: 4px;
+}
+
+.content-card h3 {
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+
+.content-card p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.content-card ul {
+    padding-left: 20px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.content-card li {
+    margin-bottom: 10px;
+}
+
+.highlight {
+    color: var(--cyan);
+    font-weight: 600;
+}
+
+/* ROVER DESIGN */
+
+.design-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.design-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 28px;
+    transition: 0.3s;
+}
+
+.design-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--cyan);
+}
+
+.design-number {
+    font-family: 'Orbitron', sans-serif;
+    color: rgba(140,236,255,0.4);
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.design-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cyan);
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.design-card p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* TIMELINE */
+
+.timeline {
+    border-left: 1px solid var(--cyan);
+    margin-left: 10px;
+    padding-left: 35px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 35px;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--cyan);
+    border-radius: 50%;
+    left: -41px;
+    top: 8px;
+    box-shadow: 0 0 12px var(--cyan);
+}
+
+.timeline-item h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    color: var(--cyan);
+    margin-bottom: 8px;
+}
+
+.timeline-item p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* FINAL SECTION */
+
+.final-panel {
+    background:
+        linear-gradient(120deg, rgba(20,50,70,0.8), rgba(10,18,30,0.95));
+    border: 1px solid var(--border);
+    padding: 45px;
+    border-radius: 5px;
+}
+
+.final-panel h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.final-panel p {
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+/* PAGE NAVIGATION */
+
+.page-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 35px 0;
+    border-top: 1px solid var(--border);
+}
+
+.page-navigation a {
+    color: var(--cyan);
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.page-navigation a:hover {
+    color: white;
+}
+
+/* FOOTER */
+
+footer {
+    border-top: 1px solid var(--border);
+    padding: 30px 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+footer span {
+    color: var(--cyan);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .design-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        background: #0b111c;
+        flex-direction: column;
+        gap: 0;
+        padding: 15px 5%;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links li {
+        padding: 12px 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 520px) {
+    section {
+        padding: 60px 0;
+    }
+
+    .stats-grid,
+    .design-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        min-height: 470px;
+    }
+
+    .final-panel {
+        padding: 25px;
+    }
+
+    .page-navigation {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">GHOSTS.</a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="archive.html" class="active">ARCHIVE</a></li>
+                <li><a href="index.html#about">ABOUT</a></li>
+                <li><a href="index.html#legacy">LEGACY</a></li>
+            </ul>
+
+            <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false">☰</button>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+    <div class="planet"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="eyebrow">ARCHIVE 002 / MARS EXPLORATION</div>
+
+            <h1>SOJOURNER<br><span>THE FIRST ROVER</span></h1>
+
+            <p>
+                A small robotic explorer that changed the way humanity
+                investigates other worlds. In 1997, Sojourner became
+                the first rover to operate on the surface of Mars.
+            </p>
+
+            <a href="#mission" class="button">EXPLORE THE MISSION</a>
+        </div>
+    </div>
+</section>
+
+<!-- MISSION DATA -->
+
+<section id="mission">
+    <div class="container">
+        <div class="section-label">MISSION PROFILE</div>
+        <h2 class="section-title">A SMALL MACHINE. A NEW WORLD.</h2>
+
+        <p class="section-intro">
+            Sojourner was part of NASA's Mars Pathfinder mission.
+            It was designed to investigate Martian rocks and soil,
+            test robotic mobility, and demonstrate a new approach
+            to exploring the surface of another planet.
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>1997</h3>
+                <p>LANDING YEAR</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>04 JUL</h3>
+                <p>LANDING DATE</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>83</h3>
+                <p>MARTIAN SOLS OPERATED</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>10.6 KG</h3>
+                <p>APPROXIMATE MASS</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHAT WAS SOJOURNER -->
+
+<section>
+    <div class="container">
+        <div class="section-label">01 / THE MACHINE</div>
+        <h2 class="section-title">WHAT WAS SOJOURNER?</h2>
+
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>A ROBOTIC GEOLOGIST</h3>
+
+                <p>
+                    Sojourner was a compact, remotely operated
+                    robotic rover developed for NASA's Mars Pathfinder
+                    mission. It landed on Mars on 4 July 1997 at
+                    Ares Vallis.
+                </p>
+
+                <p>
+                    Unlike earlier Mars landers that remained
+                    stationary, Sojourner could move across the
+                    surface, approach rocks, and investigate
+                    different locations.
+                </p>
+
+                <p>
+                    Its mission demonstrated that a relatively small
+                    and lightweight robotic vehicle could explore
+                    another planet.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h3>MISSION OBJECTIVES</h3>
+
+                <ul>
+                    <li>Study the composition of Martian rocks and soil.</li>
+                    <li>Test a mobile robotic exploration system.</li>
+                    <li>Investigate the surrounding landing area.</li>
+                    <li>Demonstrate technologies for future Mars rovers.</li>
+                    <li>Send scientific observations back to Earth.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ENGINEERING DESIGN -->
+
+<section>
+    <div class="container">
+        <div class="section-label">02 / ENGINEERING</div>
+        <h2 class="section-title">INSIDE THE ROVER</h2>
+
+        <p class="section-intro">
+            Sojourner was small, but its engineering combined
+            mobility, scientific instruments, cameras, and
+            communication systems into one autonomous robotic platform.
+        </p>
+
+        <div class="design-grid">
+
+            <div class="design-card">
+                <div class="design-number">01</div>
+                <h3>SIX-WHEEL SYSTEM</h3>
+
+                <p>
+                    Sojourner used six independently driven wheels
+                    and a rocker-bogie suspension arrangement.
+                    This helped it move over uneven terrain and
+                    small obstacles on the Martian surface.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">02</div>
+                <h3>APXS INSTRUMENT</h3>
+
+                <p>
+                    The Alpha Proton X-ray Spectrometer studied
+                    the elemental composition of rocks and soil.
+                    It helped scientists understand the materials
+                    present around the landing site.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">03</div>
+                <h3>CAMERAS</h3>
+
+                <p>
+                    Cameras helped the rover and mission team
+                    observe nearby terrain, inspect rocks,
+                    and plan movements across the surface.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">04</div>
+                <h3>POWER SYSTEM</h3>
+
+                <p>
+                    Solar panels supplied electrical energy
+                    during daylight. A rechargeable battery
+                    supported the rover when sunlight was unavailable.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">05</div>
+                <h3>COMMUNICATION</h3>
+
+                <p>
+                    Sojourner communicated through the Pathfinder
+                    lander, which acted as a relay between the rover
+                    and mission controllers on Earth.
+                </p>
+            </div>
+
+            <div class="design-card">
+                <div class="design-number">06</div>
+                <h3>ONBOARD CONTROL</h3>
+
+                <p>
+                    Its onboard electronics supported basic
+                    movement and hazard-avoidance functions,
+                    helping it navigate the nearby Martian terrain.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- MISSION TIMELINE -->
+
+<section>
+    <div class="container">
+        <div class="section-label">03 / MISSION CHRONOLOGY</div>
+        <h2 class="section-title">THE JOURNEY TO MARS</h2>
+
+        <p class="section-intro">
+            Sojourner's journey was part of the Mars Pathfinder
+            mission, which combined a stationary lander with
+            a mobile robotic explorer.
+        </p>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <h3>04 DECEMBER 1996 — LAUNCH</h3>
+
+                <p>
+                    Mars Pathfinder launched from Earth aboard
+                    a Delta II rocket, beginning its journey
+                    toward the Red Planet.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>04 JULY 1997 — LANDING</h3>
+
+                <p>
+                    The Pathfinder spacecraft successfully
+                    landed in Ares Vallis on Mars. Sojourner
+                    was later deployed from the lander.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>JULY 1997 — FIRST MOVEMENTS</h3>
+
+                <p>
+                    The rover began moving across the Martian
+                    surface, examining nearby rocks and
+                    demonstrating its mobility system.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>MISSION EXTENSION — 83 SOLS</h3>
+
+                <p>
+                    Although designed for a primary mission
+                    of seven Martian sols, Sojourner continued
+                    operating for 83 sols.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>27 SEPTEMBER 1997 — LAST CONTACT</h3>
+
+                <p>
+                    The final communication from the Pathfinder
+                    mission was received. Contact was not restored,
+                    bringing Sojourner's operational mission
+                    to an end.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SCIENTIFIC CONTRIBUTION -->
+
+<section>
+    <div class="container">
+        <div class="section-label">04 / SCIENTIFIC CONTRIBUTION</div>
+        <h2 class="section-title">WHAT DID IT DISCOVER?</h2>
+
+        <div class="content-grid">
+
+            <div class="content-card">
+                <h3>EXPLORING MARTIAN GEOLOGY</h3>
+
+                <p>
+                    Sojourner examined several rocks and soil
+                    targets near the Pathfinder landing site.
+                    Its APXS instrument provided information
+                    about their elemental composition.
+                </p>
+
+                <p>
+                    These measurements helped scientists
+                    investigate the geological history
+                    and characteristics of the landing region.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h3>PROVING ROVER TECHNOLOGY</h3>
+
+                <p>
+                    The mission demonstrated that a robotic
+                    vehicle could travel across another planet,
+                    inspect geological targets, and return
+                    useful scientific information.
+                </p>
+
+                <p>
+                    Its success helped establish the foundation
+                    for later mobile Mars exploration missions.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- END OF MISSION -->
+
+<section>
+    <div class="container">
+        <div class="section-label">05 / THE END OF THE MISSION</div>
+        <h2 class="section-title">WHY DID SOJOURNER STOP?</h2>
+
+        <div class="final-panel">
+
+            <h2>THE SIGNAL WENT SILENT</h2>
+
+            <p>
+                Sojourner depended on the Mars Pathfinder lander
+                to relay its communications to Earth. The rover
+                did not have an independent direct-to-Earth
+                communication system for normal mission operations.
+            </p>
+
+            <p>
+                On 27 September 1997, the Pathfinder mission
+                sent its final communication. The lander
+                subsequently stopped communicating with Earth,
+                and attempts to restore contact were unsuccessful.
+            </p>
+
+            <p>
+                The precise technical reason for the permanent
+                communication loss was not conclusively established.
+                Therefore, it is inaccurate to attribute the end
+                of the mission to a confirmed rover battery failure.
+            </p>
+
+            <p>
+                Sojourner and the Pathfinder lander remain at
+                their landing site on Mars, silent reminders
+                of one of humanity's earliest mobile explorations
+                of another planet.
+            </p>
+
+        </div>
+    </div>
+</section>
+
+<!-- LEGACY -->
+
+<section>
+    <div class="container">
+        <div class="section-label">06 / THE LEGACY</div>
+        <h2 class="section-title">SMALL ROVER. LASTING IMPACT.</h2>
+
+        <p class="section-intro">
+            Sojourner was not the largest or most powerful
+            spacecraft sent to Mars. Its importance came from
+            proving that robotic exploration could move beyond
+            a fixed landing site.
+        </p>
+
+        <div class="content-grid">
+
+            <div class="content-card">
+                <h3>A FOUNDATION FOR FUTURE MISSIONS</h3>
+
+                <p>
+                    The experience gained from Sojourner helped
+                    inform the development and operation of
+                    later Mars rovers, including Spirit,
+                    Opportunity, Curiosity, and Perseverance.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h3>AN EXPLORER LEFT BEHIND</h3>
+
+                <p>
+                    Its operational life ended decades ago,
+                    but its contribution remains part of
+                    the history of planetary exploration.
+                    Sojourner demonstrated that even a small
+                    machine could change how we explore
+                    distant worlds.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- PAGE NAVIGATION -->
+
+<div class="container">
+    <div class="page-navigation">
+        <a href="apollo11.html">← PREVIOUS: APOLLO 11 EAGLE</a>
+        <a href="opportunity.html">NEXT: OPPORTUNITY ROVER →</a>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>GHOSTS OF THE SOLAR SYSTEM — <span>EXPLORATION NEVER FORGOTTEN.</span></p>
+    </div>
+</footer>
+
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("show");
+    menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.textContent = isOpen ? "✕" : "☰";
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+    });
+});
+</script>
+
+</body>
+</html>

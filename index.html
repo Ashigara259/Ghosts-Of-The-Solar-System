@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghosts of the Solar System</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #070b13;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+/* NAVIGATION */
+
+nav {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8%;
+    background: rgba(7,11,19,0.95);
+    border-bottom: 1px solid #202c3b;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #8cecff;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #b5c1d0;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #8cecff;
+}
+
+.menu {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* HERO SECTION */
+
+.hero {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    padding: 90px 10%;
+    position: relative;
+    overflow: hidden;
+
+    background:
+    radial-gradient(ellipse at 80% 50%, #182d43 0%, transparent 40%),
+    linear-gradient(120deg, #080d18, #101d2d);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    right: 12%;
+    top: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%,
+        #d58c67, #873e3e 55%, #251b2d 85%);
+    box-shadow: 0 0 100px rgba(203,105,70,0.16);
+    animation: float 7s ease-in-out infinite;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+}
+
+.eyebrow {
+    color: #8cecff;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(40px, 6vw, 75px);
+    line-height: 1.15;
+    letter-spacing: -2px;
+}
+
+.hero h1 span {
+    color: #8cecff;
+}
+
+.hero p {
+    color: #a8b5c5;
+    max-width: 530px;
+    line-height: 1.9;
+    font-size: 15px;
+    margin-top: 25px;
+}
+
+.explore-btn {
+    display: inline-block;
+    margin-top: 35px;
+    padding: 15px 28px;
+    background: #8cecff;
+    color: #07111b;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.explore-btn:hover {
+    background: white;
+    transform: translateY(-4px);
+    box-shadow: 0 0 25px #8cecff55;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+}
+
+/* INTRODUCTION */
+
+.intro {
+    padding: 100px 10%;
+    text-align: center;
+}
+
+.section-label {
+    color: #8cecff;
+    font-size: 11px;
+    letter-spacing: 4px;
+}
+
+.intro h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    margin: 20px 0;
+}
+
+.intro p {
+    max-width: 750px;
+    margin: auto;
+    color: #9baabd;
+    line-height: 2;
+    font-size: 14px;
+}
+
+/* ARCHIVE */
+
+.archive {
+    padding: 80px 10%;
+    background: #0b111c;
+}
+
+.archive-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.archive-heading h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    margin-top: 15px;
+}
+
+.archive-heading p {
+    color: #8e9bad;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.card {
+    background: #101b2a;
+    border: 1px solid #25364a;
+    padding: 30px;
+    transition: 0.3s;
+    text-decoration: none;
+    color: white;
+    min-height: 260px;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #8cecff;
+    box-shadow: 0 10px 35px #0006;
+}
+
+.card-number {
+    color: #8cecff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+}
+
+.card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 19px;
+    margin: 30px 0 15px;
+}
+
+.card p {
+    color: #9baabd;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.card-link {
+    display: block;
+    color: #8cecff;
+    margin-top: 25px;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+/* QUOTE */
+
+.quote {
+    padding: 100px 12%;
+    text-align: center;
+    background: linear-gradient(120deg, #101d2c, #080d17);
+}
+
+.quote h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(22px, 4vw, 38px);
+    line-height: 1.6;
+}
+
+.quote span {
+    color: #8cecff;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 30px;
+    text-align: center;
+    border-top: 1px solid #25364a;
+    color: #77889b;
+    font-size: 11px;
+    line-height: 2;
+}
+
+/* MOBILE */
+
+@media(max-width: 850px) {
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hero::before {
+        opacity: 0.35;
+        right: -10%;
+    }
+}
+
+@media(max-width: 600px) {
+    nav {
+        padding: 0 5%;
+    }
+
+    .menu {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        padding: 25px;
+        background: #0b111c;
+        flex-direction: column;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .hero {
+        padding: 90px 7%;
+        min-height: 570px;
+    }
+
+    .hero::before {
+        width: 230px;
+        height: 230px;
+        top: 45%;
+        right: -15%;
+    }
+
+    .intro, .archive {
+        padding: 75px 7%;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .intro h2, .archive-heading h2 {
+        font-size: 23px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+    <div class="logo">GHOSTS.</div>
+
+    <button class="menu" id="menuBtn">☰</button>
+
+    <div class="nav-links" id="navLinks">
+        <a href="#home">HOME</a>
+        <a href="archive.html" class="active">ARCHIVE</a>
+        <a href="#about">ABOUT</a>
+        <a href="#legacy">LEGACY</a>
+    </div>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            NASA SPACE EXPLORATION ARCHIVE
+        </div>
+
+        <h1>
+            GHOSTS OF<br>
+            THE <span>SOLAR SYSTEM</span>
+        </h1>
+
+        <p>
+            They travelled across millions of kilometres.
+            They explored worlds beyond Earth.
+            Their missions ended, but their stories remain.
+
+            Discover the forgotten machines that changed
+            humanity's understanding of the Solar System.
+        </p>
+
+        <a href="#archive" class="explore-btn">
+            EXPLORE THE ARCHIVE →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="intro" id="about">
+
+    <div class="section-label">
+        BEYOND THE END OF A MISSION
+    </div>
+
+    <h2>THEY WERE NEVER MEANT TO RETURN</h2>
+
+    <p>
+        Since the beginning of space exploration, humanity has
+        sent machines to distant worlds to explore the unknown.
+        Some landed on the Moon. Others travelled across the
+        surface of Mars.
+
+        When their missions ended, many remained where they
+        completed their final journey.
+
+        These are their stories — the machines we left behind,
+        the discoveries they made, and the legacy they continue
+        to leave behind.
+    </p>
+
+</section>
+
+
+<!-- ARCHIVE -->
+
+<section class="archive" id="archive">
+
+    <div class="archive-heading">
+
+        <div class="section-label">
+            THE SILENT PIONEERS
+        </div>
+
+        <h2>ENTER THE ARCHIVE</h2>
+
+        <p>
+            Three machines. Three extraordinary journeys.
+            Discover their mission records.
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+        <a href="apollo11.html" class="card">
+
+            <div class="card-number">01 / THE MOON</div>
+
+            <h3>APOLLO 11<br>EAGLE</h3>
+
+            <p>
+                The lunar module that carried the first humans
+                to the surface of the Moon in 1969.
+            </p>
+
+            <div class="card-link">
+                VIEW MISSION FILE →
+            </div>
+
+        </a>
+
+
+        <a href="sojourner.html" class="card">
+
+            <div class="card-number">02 / MARS</div>
+
+            <h3>SOJOURNER</h3>
+
+            <p>
+                A small robotic explorer that became the first
+                wheeled rover to operate on Mars.
+            </p>
+
+            <div class="card-link">
+                VIEW MISSION FILE →
+            </div>
+
+        </a>
+
+
+        <a href="opportunity.html" class="card">
+
+            <div class="card-number">03 / MARS</div>
+
+            <h3>OPPORTUNITY</h3>
+
+            <p>
+                The rover designed for 90 days that continued
+                exploring Mars for nearly 15 years.
+            </p>
+
+            <div class="card-link">
+                VIEW MISSION FILE →
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- LEGACY -->
+
+<section class="quote" id="legacy">
+
+    <div class="section-label">
+        THEIR MISSIONS ENDED
+    </div>
+
+    <h2>
+        MACHINES MAY FALL SILENT.<br>
+        <span>DISCOVERIES NEVER DO.</span>
+    </h2>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    GHOSTS OF THE SOLAR SYSTEM
+
+    <br>
+
+    AN EDUCATIONAL SPACE EXPLORATION PROJECT
+
+    <br>
+
+    INSPIRED BY NASA SPACE EXPLORATION
+    · NOT AN OFFICIAL NASA WEBSITE
+
+</footer>
+
+
+<script>
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", function() {
+    navLinks.classList.toggle("active");
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", function() {
+        navLinks.classList.remove("active");
+    });
+});
+
+</script>
+
+</body>
+</html>
