@@ -22,15 +22,25 @@
     top: 50%;
     transform: translateY(-50%);
     border-radius: 50%;
+    overflow: hidden;
 
-    background: radial-gradient(
-        circle at 30% 30%,
-        #8cecff,
-        #176080 50%,
-        #07111b 90%
-    );
+    background:
+        radial-gradient(ellipse at 25% 30%,
+            #f2b17b 0%, transparent 25%),
+        radial-gradient(ellipse at 70% 65%,
+            #57251c 0%, transparent 30%),
+        radial-gradient(ellipse at 35% 75%,
+            #e17b49 0%, transparent 35%),
+        radial-gradient(circle at 35% 30%,
+            #e99b63 0%,
+            #c7653e 35%,
+            #963e2c 70%,
+            #351817 100%);
 
-    box-shadow: 0 0 45px rgba(140, 236, 255, 0.3);
+    box-shadow:
+        inset -35px -20px 55px rgba(20, 5, 3, 0.8),
+        inset 10px 10px 30px rgba(255, 190, 130, 0.25),
+        0 0 60px rgba(201, 91, 53, 0.35);
 
     animation: planetFloat 4s ease-in-out infinite;
     z-index: 1;
